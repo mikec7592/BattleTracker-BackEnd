@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
+const match = require('nodemon/lib/monitor/match');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -19,6 +19,7 @@ userSchema.pre('save', function(next) {
     if (!user.isModified('password')) {
         return next();
     }
+
     bcrypt.genSalt(10, (err, salt) => {
         if (err) {
             return next(err);
@@ -26,7 +27,7 @@ userSchema.pre('save', function(next) {
 
         bcrypt.hash(user.password, salt, (err, hash) => {
             if (err) {
-                return next(err)
+                return next (err)
             }
             user.password = hash;
             next();
@@ -34,10 +35,10 @@ userSchema.pre('save', function(next) {
     });
 });
 
-userSchema.methods.comparePAssword = function(candidatePassword) {
+userSchema.methods.comparePassword = function(candidatePassword) {
     const user = this;
     return new Promise((resolve, reject) => {
-        bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
+        bcrypt.compare(candidatePassword,user.password, (err, isMatch) => {
             if (err) {
                 return reject(err);
             }
@@ -45,10 +46,8 @@ userSchema.methods.comparePAssword = function(candidatePassword) {
                 return reject(false);
             }
             resolve(true);
-        });
-    });
-};
+        })
+    })
+}
 
 mongoose.model('User', userSchema);
-
-// Must install dependencies!! npm bcrypt, nodemon library for password mathcing. , etc..
