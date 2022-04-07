@@ -1,10 +1,13 @@
+require('./models/User')
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const authRoutes = require('./routes/authRoutes')
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(authRoutes);
 
 
 const mongoUri = 'mongodb+srv://mikec7592:garbage1@battle-tracker.skc78.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
