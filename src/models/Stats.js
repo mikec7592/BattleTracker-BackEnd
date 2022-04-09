@@ -6,6 +6,7 @@ const gameStatsSchema = new mongoose.Schema({
     //     ref: 'User'
     // },
     map: {
+        name: '',
         dropZone: String,
         endZone: String
     },
