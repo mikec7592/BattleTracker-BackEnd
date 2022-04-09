@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const gameStatsSchema = new mongoose.Schema({
+    // userId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User'
+    // },
     map: {
         dropZone: String,
         endZone: String
@@ -12,9 +16,8 @@ const gameStatsSchema = new mongoose.Schema({
         win: Boolean
     }
 });
-// const 
+
 
 mongoose.model('Stats', gameStatsSchema);
 
-
-//  
+// possible way for adding a relation between user and their gamestats??
