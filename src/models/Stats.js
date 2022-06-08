@@ -1,22 +1,28 @@
 const mongoose = require('mongoose');
 
-const gameStatsSchema = new mongoose.Schema({
-    // userId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User'
-    // },
-    map: {
-        name: '',
-        dropZone: String,
-        endZone: String
-    },
-    performance: {
+const performanceSchema = new mongoose.Schema({
+    win: Boolean,
+    damage: Number,
+    revives: Number,
+    killPoints: {
         kills: Number,
-        damage: Number,
-        revives: Number,
-        win: Boolean
-    }
+        assits: Number,
+        participation: Number
+    } 
+})
+
+const gameStatsSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    mapName: {
+        type: String,
+        default: ''
+    },
+    gameStats: [performanceSchema]
 });
+
 
 
 mongoose.model('Stats', gameStatsSchema);
